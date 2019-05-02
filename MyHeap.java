@@ -1,5 +1,5 @@
 public class MyHeap {
-  private static void push(int[] data, int size, int index) {
+  private static void pushDown(int[] data, int size, int index) {
     if (size > index * 2 + 1) { //There will only be pushing when a new row is needed.
       if (size != index * 2 + 2) { //If the final row isn't complete.
         if (data[index * 2 + 1] > data[index * 2 + 2]) { //If the left value is greater than the right value...
@@ -27,5 +27,13 @@ public class MyHeap {
       pushDown(data, data.length, i); //Starts from the bottom value because my push only compares the current value with lower values.
     }
   }
-  public static void heapsort(int[])
+  public static void heapsort(int[] data) {
+    heapify(data); //Got to convert the array to a heap first.
+    for (int i = data.length; i > 0; i = i - 1) { //Start from the bottom value and leave the largest values at the end.
+      int hold = data[0]; //Switch the bottom element with the top element and let the pushing do the work.
+      data[0] = data[i - 1];
+      data[i - 1] = hold;
+      pushDown(data, i - 1, 0);
+    }
+  }
 }
